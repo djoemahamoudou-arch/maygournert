@@ -1,0 +1,27 @@
+{
+  "name": "restaurantmaygournet",
+  "version": "1.0.0",
+  "description": "Je suis entrain de créer mon site de restaurant de maygournet.",
+  "keywords": [
+    "restaurantmaygournet"
+  ],
+  "homepage": "https://github.com/djoemahamoudou-arch/maygournert#readme",
+  "bugs": {
+    "url": "https://github.com/djoemahamoudou-arch/maygournert/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djoemahamoudou-arch/maygournert.git"
+  },
+  "license": "ISC",
+  "author": "Mahamoudou rachid",
+  "type": "commonjs",
+  "main": "serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1"
+  }
+}
