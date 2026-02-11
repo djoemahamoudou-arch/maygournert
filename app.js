@@ -1,9 +1,44 @@
 const express = require('express');
+const app = express();  
 
 
 
 
-const app = express();
+
+
+//J'importe le pilote Mysql2 utilisé intorroger la bdd Mysql 
+const mysql2 = require("mysql2");
+
+// J'importe le piloteur express-myconnection
+const myConnection = require('express-myconnection');
+
+
+
+
+// Je configure les éléments attendus pour me connecter à Mysql
+
+const optionConnectionBaseDeDonnees = {
+    host:"localhost",
+    user:"root",
+    password:"Rachid@0607",
+    database:"maygourmet",
+    port:3306
+};
+
+// On va utiliser Middleware pour ce connecter sur la BDD_MSQL
+//"pool" est la strategie de connection à la BDD Mysql
+app.use(myConnection(mysql2,optionConnectionBaseDeDonnees, "pool"));
+
+
+
+
+
+
+
+
+
+
+
 
 // Je précise que les vues sont dans le dossier views
 app.set('views','./views');

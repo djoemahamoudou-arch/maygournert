@@ -45,11 +45,11 @@ CREATE TABLE plat(
     prix DECIMAL (7.1)NOT NULL,
     quantite INT(100)NOT NULL,
     ingrediente TEXT(130)NOT NULL,
-    faitmaison BOOLEAN NOT NULL   
+    faitmaison BOOLEAN NOT NULL 
     
 );
 
-INSERT INTO plat2 (nom,prix,quantite,ingrediente,faitmaison) VALUES ('pilao','10','1','riz,oignon,tomate',TRUE);
+INSERT INTO plat (nom,prix,quantite,ingrediente,faitmaison) VALUES ('pilao','10','1','riz,oignon,tomate',TRUE);
 
 
 
@@ -59,14 +59,19 @@ INSERT INTO plat2 (nom,prix,quantite,ingrediente,faitmaison) VALUES ('pilao','10
 
 -- J'ai créer la table fournisseur
 
-CREATE TABLE fournisseur(
+CREATE TABLE  IF NOT EXISTS fournisseur (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(130)NOT NULL,
     produit VARCHAR(130)NOT NULL,
-    prix DECIMAL(4.1)NOT NULL,
-    quantite INT(200)NOT NULL, 
+    prix DECIMAL(10,2)NOT NULL,
+    quantite INT NOT NULL, 
     origine VARCHAR(300)NOT NULL,
-    typee TEXT(200)NOT NULL
+    typee TEXT NOT NULL, 
+
+    -- j'associe la table fournisseur à la table produit 
+
+    id_produit INT NOT NULL ,
+    FOREIGN KEY (id_produit) REFERENCES produit(id_produit)  
 );
 
 
@@ -78,3 +83,29 @@ VALUES
 ('yotan', 'poisson', '100', '80', 'chine', 'bio'),
 ('kevin', 'carotte', '50', '30', 'france', 'bio');
 
+
+
+
+
+
+
+ 
+CREATE TABLE IF NOT EXISTS produit (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT ,
+    nom VARCHAR(155) NOT NULL,
+    presentation VARCHAR(155),
+    prix INT NOT NULL,
+    categorie VARCHAR(55) NOT NULL,
+    disponible BOOLEAN DEFAULT false,
+    origine VARCHAR(80) NOT NULL,
+    type_culture VARCHAR(30),
+
+-- j'associe la table fournisseur à la table fournisseur 
+    id_fournisseur INT NOT NULL ,
+    FOREIGN KEY (id_fournisseur) REFERENCES fournisseur(id_fournisseur)
+
+);
+
+INSERT INTO produit(nom, presentation, prix, categorie, disponible, origine, type_culture) VALUES 
+('Banane', 'Banane locale', 2, 'Fruit', TRUE, 'Mayotte', 'Conventionnel'),
+('Carotte', 'Carotte fraîche', 4, 'Legume', TRUE, 'France', 'Bio');
