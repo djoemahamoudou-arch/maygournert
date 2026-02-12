@@ -11,5 +11,18 @@
     <!-- Inclure le fichier navbar.ejs pur avoir la barre de navigation -->
 
         <%- include('navbar') -%>
+
+ <h2>Cards</h2>
+
+<% resultatEquipe.forEach(resultat => {%>
+    <div class="card">
+             
+        <div class="container">
+           <img src="/sql/premium_photo-1739786995646-480d5cfd83dc.avif" alt="Avatar">
+            <h4><b><%= resultat.nom %> <%= resultat.prenom %></b></h4>
+            <p><%= resultat.poste%></p>
+        </div>
+    </div>
+<% });%>
 </body>
 </html>

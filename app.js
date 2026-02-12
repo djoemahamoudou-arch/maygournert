@@ -11,6 +11,7 @@ const mysql2 = require("mysql2");
 
 // J'importe le piloteur express-myconnection
 const myConnection = require('express-myconnection');
+const connection = require('express-myconnection');
 
 
 
@@ -45,9 +46,6 @@ app.set('views','./views');
 
 
 app.set('view engine', 'ejs')
-
-
-
 
 // j'ai dit appJS pour qu'il va sur le dossier public.
 
@@ -95,7 +93,7 @@ app.get('/api/accueil', (req, res) => {
 
 
 
-
+// Ici j'ai importer mon table equipe qui se trouve sur MSQL pour l'afficher sur gitbash
 
 
 
@@ -104,7 +102,22 @@ app.get('/api/accueil', (req, res) => {
 
 app.get('/api/equipe', (req, res) => {
     console.log("Je passe dans /api/equipe");
-    res.render('equipe');
+   req.getConnection((erreur,connection)=> {
+    if(erreur) {
+         console.log(erreur)
+    } else{
+        connection.query("SELECT * FROM equipe", [], (err,resultatEquipe) => {
+          if(err){
+            console.log("Erreur dans la requête SQL SELECT",err);
+          } else{
+            console.log("Mon equipe : ", resultatEquipe);
+            res.render('equipe', { resultatEquipe });
+          } 
+        });
+    }
+   })
+  
+
 });
 
 
