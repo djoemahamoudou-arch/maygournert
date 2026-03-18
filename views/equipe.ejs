@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="/css/styleEquipe.css">
 </head>
 <body>
-    <h1>Je suis dans equipe</h1>
+  
+<header class="header">
+    <h1>🍽️ May.Gourmet</h1>
+    <p> Rejoignez notre communauté et recevez toutes nos nouveautés, recettes et offres spéciales ! Inscrivez-vous ci-dessous</p>
+</header>
     <!-- Inclure le fichier navbar.ejs pur avoir la barre de navigation -->
 
-        <%- include('navbar') -%>
-
- <h2>Cards</h2>
+<%- include('navbar') -%>
 
 <% resultatEquipe.forEach(resultat => {%>
     <div class="card">
@@ -20,9 +22,59 @@
         <div class="container">
            <img src="/sql/premium_photo-1739786995646-480d5cfd83dc.avif" alt="Avatar">
             <h4><b><%= resultat.nom %> <%= resultat.prenom %></b></h4>
-            <p><%= resultat.poste%></p>
+            <p><%= resultat.poste %></p>
+            <input type="button" value="supprimer" onclick="supprimer('<%= resultat.id %>')">
         </div>
     </div>
 <% });%>
+
+
+<button id="myBtn">Open Modal</button>
+
+<div id="myModal" class="modal">
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Formulaire de Contact</h2>
+    </div>
+
+    <div class="modal-body">
+      <form id="contactForm">
+        <label for="nom">Nom :</label><br>
+        <input type="text" id="nom" name="nom" placeholder="Votre nom" required><br><br>
+        
+        <label for="prenom">Prénom :</label><br>
+        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required><br><br>
+
+        <label for="numero">Numéro :</label><br>
+        <input type="tel" id="numero" name="numero" placeholder="Votre numéro" required><br><br>
+
+        <label for="email">Email :</label><br>
+        <input type="email" id="email" name="email" placeholder="Votre email" required><br><br>
+
+        <label for="message">Message :</label><br>
+        <textarea id="message" name="message" placeholder="Votre message..." rows="4" required></textarea>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" form="contactForm">Envoyer</button>
+    </div>
+  </div>
+
+</div>
+
+
+
 </body>
+
+
+
+
+
+<script src="/script.js"></script>
+
+
+
 </html>

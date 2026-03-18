@@ -1,15 +1,122 @@
-*{
-    background-color: rgb(143, 158, 158);
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
 
-
-h1{
+/* Header */
+.header {
+    background: #1a1a1a;
+    color: white;
     text-align: center;
-    margin: auto;
-    
+    padding: 25px;
 }
 
+.header h1 {
+    font-size: 32px;
+}
+
+.header p {
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* Hero section */
+.hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    margin-bottom: 20px;
+}
+
+/* Button fixé en haut à droite */
+.btn {
+    position: fixed;   /* reste en haut même quand tu scroll */
+    top: 10px;         /* distance du haut */
+    right: 10px;       /* distance de la droite */
+    background: #ff4d4d;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 8px;
+    z-index: 1000;     /* au-dessus de tout */
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #e60000;
+}
+
+/* Conteneur pour aligner les cards */
+.features {
+    display: flex;              /* active flexbox */
+    justify-content: center;    /* centre horizontalement */
+    flex-wrap: wrap;            /* les cards passent à la ligne si nécessaire */
+    gap: 20px;                  /* espace entre les cards */
+    padding: 40px;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+.footer {
+    background: #1a1a1a;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+
+
+
+.navbar {
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar a:hover {
+    color: #ff4d4d;
+}
 
 
 

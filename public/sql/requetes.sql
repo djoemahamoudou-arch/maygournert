@@ -62,6 +62,7 @@ INSERT INTO plat (nom,prix,quantite,ingrediente,faitmaison) VALUES ('pilao','10'
 CREATE TABLE  IF NOT EXISTS fournisseur (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nom VARCHAR(130)NOT NULL,
+    prenom VARCHAR(130) NOT NULL
     produit VARCHAR(130)NOT NULL,
     prix DECIMAL(10,2)NOT NULL,
     quantite INT NOT NULL, 
@@ -69,13 +70,10 @@ CREATE TABLE  IF NOT EXISTS fournisseur (
     typee TEXT NOT NULL, 
 
     -- j'associe la table fournisseur à la table produit 
-
-    id_produit INT NOT NULL ,
-    FOREIGN KEY (id_produit) REFERENCES produit(id_produit)  
 );
 
 
-INSERT INTO fournisseur (nom, produit, prix, quantite, origine, typee)
+INSERT INTO fournisseur (nom,prenom, produit, prix, quantite, origine, typee)
 VALUES
 ('douka b', 'oignon', '100', '50', 'madagascar', 'bio'),
 ('said', 'poulet', '200', '100', 'mayotte', 'halal'),

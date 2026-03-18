@@ -9,9 +9,18 @@ const app = express();
 //J'importe le pilote Mysql2 utilisé intorroger la bdd Mysql 
 const mysql2 = require("mysql2");
 
+
+
 // J'importe le piloteur express-myconnection
 const myConnection = require('express-myconnection');
 const connection = require('express-myconnection');
+
+
+
+// Permet de récuperer les information saisie.
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 
 
 
@@ -106,7 +115,7 @@ app.get('/api/equipe', (req, res) => {
     if(erreur) {
          console.log(erreur)
     } else{
-        connection.query("SELECT * FROM equipe", [], (err,resultatEquipe) => {
+        connection.query("SELECT * FROM equipe",[], (err,resultatEquipe) => {
           if(err){
             console.log("Erreur dans la requête SQL SELECT",err);
           } else{
@@ -120,11 +129,104 @@ app.get('/api/equipe', (req, res) => {
 
 });
 
+// C'est pour supprimer un api
+app.delete('/api/equipe/:id', (req, res) => {
+  const idMembreEquipe = req.params.id;
+  const queryDelete = "DELETE FROM equipe WHERE id = ?";
+
+  req.getConnection((erreur, connection) => {
+    if (erreur) {
+      console.log("Erreur suppression equipe :", erreur);
+    } else {
+      connection.query(queryDelete, [idMembreEquipe], (err, resultat) => {
+        if (err) {
+          console.log("erreur requete suppression : ", err);
+        } else {
+          console.log("Bravo! le membre est supprimé dans la tables equipe");
+
+          res.status(200).json({ routeAccueil: '/api/accueil' });
+        }
+      });
+    }
+  });
+});
+
+
+
+// J'ajoute un fournisseur dans la table fournisseur .Pour cela, j'utilise la methode POST.
+app.post('/api/fournisseur',(req,res)=>{
+  console.log("corps de la requête: ",req.body);
+
+  const nomfournisseur = req.body.firstname;
+  const prenomFournisseur = req.body.lastname;
+  const produitFournisseur= req.body.produit;
+  const prixFournisseur = req.body.prix;
+  const quantiteFournisseur= req.body.quantite;
+  const origineFournisseur= req.body.origine;
+  const typeFournisseur = req.body.typee;
+
+  const requeteSql = "INSERT INTO fournisseur (nom, prenom,produit,prix,quantite,origine,typee) VALUES(?,?,?,?,?,?,?)";
+
+  const ordreChamps = [ nomfournisseur,prenomFournisseur,produitFournisseur,prixFournisseur,quantiteFournisseur,origineFournisseur,typeFournisseur ];
+
+  // Je me connecte a la base de donnees
+  req.getConnection((erreur, connection) => {
+
+    if(erreur) {
+      console.log("Erreur de connexion à la BDD : ", erreur);
+    }
+    else {
+
+      connection.query(requeteSql, ordreChamps, (err, nouveauFournisseur) => {
+
+        if(err) {
+          console.log("Erreur d'ajout fournisseur : ", err);
+        }
+        else {
+          console.log("Bravo! Nouveau fournisseur ajouté.");
+          res.redirect("/accueil");
+        }
+
+      });
+
+    }
+
+  });
+
+});
 
 
 
 
 
+app.get('/api/fournisseur', (req, res) => {
+  console.log("Je passe dans /api/fournisseur",req.body);
+  req.getConnection((erreur, connection) => {
+
+    if (erreur) {
+      console.log(erreur);
+
+    } else {
+
+      connection.query("SELECT * FROM fournisseur", [], (err, resultatFournisseur) => {
+
+        if (err) {
+          console.log("Erreur dans la requête SQL SELECT", err);
+
+        } else {
+
+          console.log("Mes fournisseurs :", resultatFournisseur);
+          res.render('fournisseur', { resultatFournisseur });
+
+        }
+
+      });
+
+    }
+
+  });
+
+});
 
 
 
@@ -136,7 +238,20 @@ app.get('/api/equipe', (req, res) => {
 
 app.get('/api/plat', (req, res) => {
     console.log("Je passe dans /api/plat");
-    res.send("<p>Je passe dans api/plat</p>");
+   req.getConnection((erreur,connection)=> {
+    if(erreur) {
+         console.log(erreur)
+    } else{
+        connection.query("SELECT * FROM plat", (err,resultatPlat) => {
+          if(err){
+            console.log("Erreur dans la requête SQL SELECT",err);
+          } else{
+            console.log("Mon plat : ", resultatPlat);
+            res.render('plat', { resultatPlat });
+          } 
+        });
+    }
+   })
 });
 
 
