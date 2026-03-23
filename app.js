@@ -129,6 +129,50 @@ app.get('/api/equipe', (req, res) => {
 
 });
 
+app.post('/api/equipe',(req,res)=>{
+  console.log("corps de la requête: ",req.body);
+
+  const nom = req.body.nom;
+  const prenom = req.body.prenom;
+  const email = req.body.email;
+  const telephone = req.body.telephone;
+  const poste = req.body.poste;
+  const adresse_postale = req.body.adresse_postale;
+  const presentation = req.body.presentation;
+  const date_recrutement = req.body.date_recrutement;
+
+  const requeteSql = "INSERT INTO equipe (nom, prenom, email, telephone, poste,adresse_postale, presentation, date_recrutement) VALUES(?,?,?,?,?,?,?,?)";
+
+  const ordreChamps = [ nom, prenom, email, telephone, poste, adresse_postale, presentation, date_recrutement ];
+
+  // Je me connecte a la base de donnees
+  req.getConnection((erreur, connection) => {
+
+    if(erreur) {
+      console.log("Erreur de connexion à la BDD : ", erreur);
+    }
+    else {
+
+      connection.query(requeteSql, ordreChamps, (err, nouveauMembre) => {
+
+        if(err) {
+          console.log("Erreur d'ajout membre equipe : ", err);
+        }
+        else {
+          console.log("Bravo! Nouveau membre ajouté.");
+          res.redirect("/accueil");
+        }
+
+      });
+
+    }
+
+  });
+
+});
+
+
+
 // C'est pour supprimer un api
 app.delete('/api/equipe/:id', (req, res) => {
   const idMembreEquipe = req.params.id;
@@ -150,6 +194,9 @@ app.delete('/api/equipe/:id', (req, res) => {
     }
   });
 });
+
+
+
 
 
 
@@ -194,7 +241,6 @@ app.post('/api/fournisseur',(req,res)=>{
   });
 
 });
-
 
 
 
@@ -254,6 +300,43 @@ app.get('/api/plat', (req, res) => {
    })
 });
 
+app.post('/api/plat',(req,res)=>{
+  console.log("corps de la requête: ",req.body);
+
+  const nom = req.body.nom;
+  const prix = req.body.prix;
+  const quantite = req.body.quantite;
+  const ingrediente = req.body.ingrediente;
+  const faitmaison = req.body.faitmaison === "true" ? 1 : 0;
+
+  const requeteSql = "INSERT INTO plat (nom, prix, quantite, ingrediente, faitmaison) VALUES(?,?,?,?,?)";
+
+  const ordreChamps = [ nom, prix, quantite, ingrediente, faitmaison ];
+
+  req.getConnection((erreur, connection) => {
+
+    if(erreur) {
+      console.log("Erreur de connexion à la BDD : ", erreur);
+    }
+    else {
+
+      connection.query(requeteSql, ordreChamps, (err, nouveauPlat) => {
+
+        if(err) {
+          console.log("Erreur d'ajout du plat : ", err);
+        }
+        else {
+          console.log("Bravo! Nouveau plat ajouté.");
+          res.redirect("/plats");
+        }
+
+      });
+
+    }
+
+  });
+
+});
 
 
 

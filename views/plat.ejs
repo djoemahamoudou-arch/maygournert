@@ -4,8 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plat</title>
-</head>
-<body>
+    <link rel="stylesheet" href="/css/plat.css">
     
+</head>
+<header class="header">
+    <h1>🍽️ May.Gourmet</h1>
+
+</header>
+<body>
+    <%- include('navbar') -%>
+   
+   
+<% resultatPlat.forEach(resultat => { %>
+  <div class="container">
+    <img src="/images.jpg" alt="<%= resultat.nom %>">
+    <h3><b><%= resultat.nom %></b></h3>
+    <p><strong>Prix :</strong> <%= resultat.prix %> €</p>
+    <p><strong>Quantité disponible :</strong> <%= resultat.quantite %></p>
+    <p><strong>Ingrédients :</strong> <%= resultat.ingrediente %></p>
+    <p><strong>Fait maison :</strong> <%= resultat.faitMaison ? "Oui" : "Non" %></p>
+  </div>
+<% }) %>
+
+<!-- Bouton -->
+<button id="myBtn"><strong>Ajoute un plat</strong></button>
+
+<!-- Le Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Ajouter un plat</h2>
+   <form action="/api/plat" method="POST">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" required>
+
+      <label for="prix">Prix (€) :</label>
+      <input type="number" id="prix" name="prix" step="0.01" required>
+
+      <label for="quantite">Quantité :</label>
+      <input type="number" id="quantite" name="quantite" required>
+
+      <label for="ingrediente">Ingrediente:</label>
+      <input type="text" id="ingrediente" name="ingrediente" required>
+
+      <label for="faitMaison">Fait maison :</label>
+      <select id="faitmaison" name="faitmaison" required>
+        <option value="true">Oui</option>
+        <option value="false">Non</option>
+      </select>
+
+      <button type="submit">Ajouter</button>
+    </form>
+  </div>
+</div>
 </body>
+<script src="/script.js"></script>
 </html>
